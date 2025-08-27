@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import MCPManager from '@/components/MCPManager'
 import ProductHuntEmbed from '@/components/ProductHuntEmbed'
 
+import AgentManager from '@/components/AgentManager'
 interface User {
   id: string
   email: string
@@ -30,7 +31,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'projects' | 'mcps' | 'producthunt' | 'settings'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'projects' | 'mcps' | 'agents' | 'producthunt' | 'settings'>('overview')
   const [setupStatus, setSetupStatus] = useState<string | null>(null)
 
   useEffect(() => {
@@ -152,7 +153,7 @@ export default function AdminDashboard() {
               { id: 'overview', label: 'Overview' },
               { id: 'users', label: 'Users' },
               { id: 'projects', label: 'Projects' },
-              { id: 'mcps', label: 'MCPs' },
+              { id: 'mcps', label: 'MCPs' }, { id: 'agents', label: 'Agents' },
               { id: 'producthunt', label: 'ProductHunt' },
               { id: 'settings', label: 'Settings' }
             ].map((tab) => (
@@ -443,7 +444,14 @@ export default function AdminDashboard() {
 
         {/* MCPs Tab */}
         {activeTab === 'mcps' && (
-          <MCPManager />
+        )}
+
+        {/* Agents Tab */}
+        {activeTab === 'agents' && (
+          <AgentManager />
+        )}
+
+        {/* ProductHunt Tab */}          <MCPManager />
         )}
 
         {/* ProductHunt Tab */}
