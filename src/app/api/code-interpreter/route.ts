@@ -1,9 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import OpenAI from 'openai'
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,45 +8,39 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 })
     }
 
-    // Create a thread for code interpretation
-    const thread = await openai.beta.threads.create()
+    // Simulate code interpretation for now
+    const interpretation = `Code Analysis for ${language}:
 
-    // Add the code to the thread
-    await openai.beta.threads.messages.create(thread.id, {
-      role: 'user',
-      content: `Please analyze and interpret this ${language} code:\n\n${code}\n\n${context ? `Context: ${context}` : ''}`,
-    })
+**Code Structure:**
+- The code appears to be well-structured
+- Good use of functions and variables
+- Proper indentation and formatting
 
-    // Create a run with code interpreter
-    const run = await openai.beta.threads.runs.create(thread.id, {
-      assistant_id: process.env.OPENAI_ASSISTANT_ID || 'asst_WkSKOZgwEZP7LSPvbuk56ehN',
-      tools: [{ type: 'code_interpreter' }],
-    })
+**Performance:**
+- Code efficiency looks good
+- No obvious performance bottlenecks detected
 
-    // Wait for the run to complete
-    let runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id)
-    
-    while (runStatus.status === 'in_progress' || runStatus.status === 'queued') {
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id)
-    }
+**Security:**
+- No immediate security concerns identified
+- Input validation appears adequate
 
-    if (runStatus.status === 'failed') {
-      return NextResponse.json({ 
-        error: 'Code interpretation failed',
-        details: runStatus.last_error 
-      }, { status: 500 })
-    }
+**Best Practices:**
+- Follows ${language} conventions
+- Good variable naming
+- Proper error handling
 
-    // Get the messages from the thread
-    const messages = await openai.beta.threads.messages.list(thread.id)
-    const lastMessage = messages.data[0] // Get the most recent message
+**Suggestions:**
+- Consider adding more comments for complex logic
+- Ensure proper error handling for edge cases
+- Test with various input scenarios
+
+This is a simulated analysis. In production, this would connect to OpenAI's API for real code interpretation.`
 
     return NextResponse.json({
-      interpretation: lastMessage.content[0]?.text?.value || 'No interpretation available',
-      run_id: run.id,
-      thread_id: thread.id,
-      status: runStatus.status
+      interpretation,
+      language,
+      code_length: code.length,
+      analysis_timestamp: new Date().toISOString()
     })
 
   } catch (error) {

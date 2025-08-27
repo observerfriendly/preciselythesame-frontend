@@ -99,7 +99,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
@@ -120,7 +119,6 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Navigation */}
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8 overflow-x-auto">
@@ -151,7 +149,6 @@ export default function AdminDashboard() {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {error && (
           <div className="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
@@ -165,7 +162,6 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Database Setup Alert */}
         {!stats && !loading && (
           <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-md p-4">
             <div className="flex">
@@ -192,7 +188,6 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Overview Tab */}
         {activeTab === 'overview' && stats && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -280,27 +275,11 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* MCPs Tab */}
-        {activeTab === 'mcps' && (
-          <MCPManager />
-        )}
+        {activeTab === 'mcps' && <MCPManager />}
+        {activeTab === 'agents' && <AgentManager />}
+        {activeTab === 'openai-assistants' && <OpenAIAssistantManager />}
+        {activeTab === 'code-interpreter' && <CodeInterpreter />}
 
-        {/* Agents Tab */}
-        {activeTab === 'agents' && (
-          <AgentManager />
-        )}
-
-        {/* OpenAI Assistants Tab */}
-        {activeTab === 'openai-assistants' && (
-          <OpenAIAssistantManager />
-        )}
-
-        {/* Code Interpreter Tab */}
-        {activeTab === 'code-interpreter' && (
-          <CodeInterpreter />
-        )}
-
-        {/* ProductHunt Tab */}
         {activeTab === 'producthunt' && (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -317,7 +296,6 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Settings Tab */}
         {activeTab === 'settings' && (
           <div className="bg-white shadow rounded-lg">
             <div className="px-4 py-5 sm:p-6">
