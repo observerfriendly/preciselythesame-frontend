@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import MCPManager from '@/components/MCPManager'
 import ProductHuntEmbed from '@/components/ProductHuntEmbed'
 import AgentManager from '@/components/AgentManager'
+import OpenAIAssistantManager from '@/components/OpenAIAssistantManager'
 
 interface User {
   id: string
@@ -31,7 +32,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'projects' | 'mcps' | 'agents' | 'producthunt' | 'settings'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'projects' | 'mcps' | 'agents' | 'openai-assistants' | 'producthunt' | 'settings'>('overview')
   const [setupStatus, setSetupStatus] = useState<string | null>(null)
 
   useEffect(() => {
@@ -103,7 +104,7 @@ export default function AdminDashboard() {
           <div className="flex justify-between items-center py-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-gray-600">Manage your preciselythesame.com data, MCPs, and AI agents</p>
+              <p className="text-gray-600">Manage your preciselythesame.com data, MCPs, AI agents, and OpenAI Assistants</p>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-500">Welcome, Admin</span>
@@ -128,6 +129,7 @@ export default function AdminDashboard() {
               { id: 'projects', label: 'Projects' },
               { id: 'mcps', label: 'MCPs' },
               { id: 'agents', label: 'Agents' },
+              { id: 'openai-assistants', label: 'OpenAI Assistants' },
               { id: 'producthunt', label: 'ProductHunt' },
               { id: 'settings', label: 'Settings' }
             ].map((tab) => (
@@ -284,6 +286,11 @@ export default function AdminDashboard() {
         {/* Agents Tab */}
         {activeTab === 'agents' && (
           <AgentManager />
+        )}
+
+        {/* OpenAI Assistants Tab */}
+        {activeTab === 'openai-assistants' && (
+          <OpenAIAssistantManager />
         )}
 
         {/* ProductHunt Tab */}
