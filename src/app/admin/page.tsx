@@ -105,7 +105,7 @@ export default function AdminDashboard() {
           <div className="flex justify-between items-center py-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-gray-600">Manage your preciselythesame.com data, MCPs, AI agents, and OpenAI Assistants</p>
+              <p className="text-gray-600">Manage your preciselythesame.com data, MCPs, AI agents, and tools</p>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-500">Welcome, Admin</span>
@@ -130,7 +130,8 @@ export default function AdminDashboard() {
               { id: 'projects', label: 'Projects' },
               { id: 'mcps', label: 'MCPs' },
               { id: 'agents', label: 'Agents' },
-              { id: 'openai-assistants', label: 'OpenAI Assistants' }, { id: 'code-interpreter', label: 'Code Interpreter' },
+              { id: 'openai-assistants', label: 'OpenAI Assistants' },
+              { id: 'code-interpreter', label: 'Code Interpreter' },
               { id: 'producthunt', label: 'ProductHunt' },
               { id: 'settings', label: 'Settings' }
             ].map((tab) => (
@@ -291,14 +292,12 @@ export default function AdminDashboard() {
 
         {/* OpenAI Assistants Tab */}
         {activeTab === 'openai-assistants' && (
+          <OpenAIAssistantManager />
         )}
 
         {/* Code Interpreter Tab */}
         {activeTab === 'code-interpreter' && (
           <CodeInterpreter />
-        )}
-
-        {/* ProductHunt Tab */}          <OpenAIAssistantManager />
         )}
 
         {/* ProductHunt Tab */}
